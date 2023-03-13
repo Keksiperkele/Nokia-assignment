@@ -48,11 +48,11 @@ try:
         os.makedirs(directory)
         open(options.filename, "x")
         errors = open(options.filename, "w")
+except FileNotFoundError:
+    open(options.filename, "x")
+    errors = open(options.filename, "w")
 except PermissionError:
     print("Could not create chosen file in the chosen directory.")
-    sys.exit(1)
-except FileNotFoundError:
-    print("The given directory is not valid")
     sys.exit(1)
 
 if options.time == "0":
@@ -88,6 +88,4 @@ else:
             print("File not found. Check file/script directory.")
 
     except ValueError:
-        print("Please check time formatting. (Use --help command for the correct form)")
-    except IndexError:
         print("Please check time formatting. (Use --help command for the correct form)")
