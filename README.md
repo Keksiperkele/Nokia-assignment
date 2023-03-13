@@ -4,7 +4,6 @@
 How to use:
 
     1. Save this script on the same directory that your Linux kernel ring buffer is.
-
     2. Run this script from the command line.
 
 What this script does?:
@@ -15,5 +14,4 @@ What this script does?:
 Different options:
 
     -o, --output: This option allows the user to specify which directory the user wants the errors printed in.
-
     -u, --until: This option allows the user to specify the end date of the parsing. (Format: YYYY-MM-DD)
