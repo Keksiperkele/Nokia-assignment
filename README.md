@@ -11,4 +11,4 @@ What this script does?:
 
 Different options:
     -o, --output: This option allows the user to specify which directory the user wants the errors printed in.
-    -u, --until: This option allows the user to specify the end date of the parsing.
+    -u, --until: This option allows the user to specify the end date of the parsing. (Format: YYYY-MM-DD)
