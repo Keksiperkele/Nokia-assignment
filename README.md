@@ -19,3 +19,5 @@ Different options:
 Example for commandline:
 
     linuxerrors.py -o C:\Users\user\Documents\errors\2023Mar02.txt -u 2023-03-02
+
+    This example generates an outputfile named "2023Mar02.txt" and it has the errors from start to date 02.03.2023.
