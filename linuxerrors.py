@@ -55,10 +55,11 @@ except PermissionError:
     print("Could not create chosen file in the chosen directory.")
     sys.exit(1)
 
+
 if options.time == "0":
 #If the until date isn't specified the script tries to go through the whole log file.
     try:
-        #Be sure to add the correct log directory here.
+        #Be sure to add the correct log directory here if not running script from root.
         with open("dmesg.log", "r") as log:
             for line in log:
                 for i in keywords:
@@ -70,13 +71,13 @@ if options.time == "0":
         print("File not found. Check file/script directory.")
 else:
     try:
-    #First we format the given date so we can check it properly from the logs.
+    #First we save the until-date specified in the logs.
         untildate = datetime.datetime.fromisoformat(options.time)
         try:
             #Be sure to run the script in the log directory.
             with open("dmesg.log", "r") as log:
                 for line in log:
-                    #Here we check if we have the until-date reached.
+                    #We parse only the lines with the chosen date or later. 
                     for i in keywords:
                         if i in line:
                             line_date = datetime.datetime.strptime(line[1:25], "%c")
