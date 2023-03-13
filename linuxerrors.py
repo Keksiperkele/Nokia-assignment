@@ -71,7 +71,7 @@ if options.time == "0":
 else:
     try:
     #First we format the given date so we can check it properly from the logs.
-        untildate = options.time
+        untildate = datetime.datetime.fromisoformat(options.time)
         try:
             #Be sure to run the script in the log directory.
             with open("dmesg.log", "r") as log:
@@ -79,11 +79,10 @@ else:
                     #Here we check if we have the until-date reached.
                     for i in keywords:
                         if i in line:
-                            lyear = int(line[21:25])
-                            lmonth = int(months[line[5:8]])
-                            lday = int(line[9:11].strip())
-                            if datetime.date(lyear, lmonth, lday) >= datetime.date.fromisoformat(untildate):
+                            line_date = datetime.datetime.strptime(line[1:25], "%c")
+                            if line_date >= untildate:
                                 errors.write(json.dumps(line))
+                                errors.write("\n")
                                 print(line)
         except FileNotFoundError:
             print("File not found. Check file/script directory.")
