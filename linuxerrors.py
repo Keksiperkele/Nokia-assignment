@@ -3,29 +3,15 @@ This script will read a log file and separate lines with potential errors in it 
 different file and print out the errors to the user. The errors in the file will be in JSON-format.
 """
 import optparse
+import os
 import datetime
 import json
-
-months = {
-    #Mapping the months to their corresponding digits.
-    "Jan": 1, 
-    "Feb": 2,
-    "Mar": 3,
-    "Apr": 4,
-    "May": 5, 
-    "Jun": 6, 
-    "Jul": 7,
-    "Aug": 8, 
-    "Sep": 9, 
-    "Oct": 10, 
-    "Nov": 11, 
-    "Dec": 12
-}
 
 keywords = ["fail", "stop", "error", "too large", "too long"]
 #I'm using the given keywords and also 'too large' and 'too long' here for date testing purposes.
 
 parser = optparse.OptionParser()
+
 parser.add_option(
     #This option let's the user choose the output file and directory.
     "-o",
@@ -49,12 +35,25 @@ parser.add_option(
 
 (options, args) = parser.parse_args()
 
-#First we try to create and open the wanted file. Default is errors_in_log.txt
+#First we try to create and open the wanted directory/file. Default is errors_in_log.json
 try:
+    directory, file = os.path.split(options.filename)
+    if os.path.isfile(options.filename):
+        errors = open(options.filename, "w")
+    elif os.path.exists(directory):
+        open(options.filename, "x")
+        errors = open(options.filename, "w")
+    else:
+        os.makedirs(directory)
+        open(options.filename, "x")
+        errors = open(options.filename, "w")
+except FileNotFoundError:
     open(options.filename, "x")
     errors = open(options.filename, "w")
 except FileExistsError:
     errors = open(options.filename, "w")
+except PermissionError:
+    print("Could not create chosen file in the chosen directory.")
 
 if options.time == "0":
 #If the until date isn't specified the script tries to go through the whole log file.
@@ -65,6 +64,7 @@ if options.time == "0":
                 for i in keywords:
                     if i in line:
                         errors.write(json.dumps(line))
+                        errors.write("\n")
                         print(line)
     except FileNotFoundError:
         print("File not found. Check file/script directory.")
