@@ -51,6 +51,9 @@ try:
 except PermissionError:
     print("Could not create chosen file in the chosen directory.")
     sys.exit(1)
+except FileNotFoundError:
+    print("The given directory is not valid")
+    sys.exit(1)
 
 if options.time == "0":
 #If the until date isn't specified the script tries to go through the whole log file.
