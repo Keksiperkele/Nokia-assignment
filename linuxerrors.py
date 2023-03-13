@@ -32,7 +32,7 @@ parser.add_option(
     "--output",
     type="string",
     dest="filename",
-    default="errors_in_log.txt",
+    default="errors_in_log.json",
     help="Choose output file and directory",
     )
 
@@ -71,9 +71,7 @@ if options.time == "0":
 else:
     try:
     #First we format the given date so we can check it properly from the logs.
-        untildate = options.time.split("-")
-        for i in range(0, len(untildate)):
-            untildate[i] = int(untildate[i])
+        untildate = options.time
         try:
             #Be sure to run the script in the log directory.
             with open("dmesg.log", "r") as log:
@@ -84,7 +82,7 @@ else:
                             lyear = int(line[21:25])
                             lmonth = int(months[line[5:8]])
                             lday = int(line[9:11].strip())
-                            if datetime.date(lyear, lmonth, lday) <= datetime.date(untildate[0], untildate[1], untildate[2]):
+                            if datetime.date(lyear, lmonth, lday) >= datetime.date.fromisoformat(untildate):
                                 errors.write(json.dumps(line))
                                 print(line)
         except FileNotFoundError:
