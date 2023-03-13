@@ -10,7 +10,6 @@ How to use:
 What this script does?:
 
     This script searches the kernel ring buffer for possible errors. When possible errors are detected, 
-
     the script prints out the line and then writes it down in to a *.txt file in JSON-format. 
 
 Different options:
