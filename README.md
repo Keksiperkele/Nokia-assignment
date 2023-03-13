@@ -2,7 +2,9 @@
  This python script is used for the work-application assignment given by the representative at Nokia.
 
 How to use:
+
     1. Save this script on the same directory that your Linux kernel ring buffer is.
+    
     2. Run this script from the command line.
 
 What this script does?:
