@@ -15,3 +15,7 @@ Different options:
 
     -o, --output: This option allows the user to specify which directory the user wants the errors printed in.
     -u, --until: This option allows the user to specify the end date of the parsing. (Format: YYYY-MM-DD)
+
+Example for commandline:
+
+    linuxerrors.py -o C:\Users\user\Documents\errors\2023Mar02.txt -u 2023-03-02
