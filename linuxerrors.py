@@ -6,6 +6,7 @@ import optparse
 import os
 import datetime
 import json
+import sys
 
 keywords = ["fail", "stop", "error", "too large", "too long"]
 #I'm using the given keywords and also 'too large' and 'too long' here for date testing purposes.
@@ -47,13 +48,9 @@ try:
         os.makedirs(directory)
         open(options.filename, "x")
         errors = open(options.filename, "w")
-except FileNotFoundError:
-    open(options.filename, "x")
-    errors = open(options.filename, "w")
-except FileExistsError:
-    errors = open(options.filename, "w")
 except PermissionError:
     print("Could not create chosen file in the chosen directory.")
+    sys.exit(1)
 
 if options.time == "0":
 #If the until date isn't specified the script tries to go through the whole log file.
